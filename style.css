@@ -1,96 +1,173 @@
-.carrossel{
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-}
-.carrossel::after{
-    content: '';
-    bottom: 97px;
-    position: absolute;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0, 0, 0, 0), 80%, #000 100%);
+.spinner{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1002;
     width: 100%;
-    height: 100%;
-    z-index: 10;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d1d1d1;
 }
-.carrossel::-webkit-scrollbar {
+.spinner span{
+    width: 50px;
+    height: 50px;
+    border: 15px solid orange;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spinner 0.4s linear infinite;
+}
+@keyframes spinner{
+    to{
+        transform: rotate(360deg);
+    }
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    color: white;
+    box-sizing: border-box;
+}
+@keyframes smooth {
+    from {
+        max-width: 40%;
+    }
+    to{
+        max-width: 100%;
+    }
+}
+.content {
+    display: flex;
+    width: calc(100% / 4);
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: 50px;
+    cursor: pointer;
+    opacity: 0.8;
+    height: 100vh;
+    animation: contentsuaveReverse 0.4s linear forwards;
+}
+@keyframes contentsuaveReverse{
+    from{
+        width: 100%;
+    }
+    to{
+        width: calc(100% / 4);
+    }
+}
+.content.active{
+    animation: suave 0.4s linear forwards alternate;
+    flex-direction: column;
+    justify-content: space-between;
+}
+@keyframes suave {
+    to{
+        width: 100%;
+    }
+}
+.content h1{
+    align-self: flex-start;
+    font-size: 3rem;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    transform: rotate(90deg);
+    padding-left: 30px;
+    animation: titleReverse 0.4s linear forwards;
+    
+}
+@keyframes titleReverse{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(90deg);
+    }
+}
+.content div {
+    border: 1px solid whitesmoke;
+    width: 60%;
+    box-sizing: border-box;
+    padding: 40px;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
     display: none;
 }
 
-.photos{
-    background-position: center;
-    background-size: cover;
+.content.active h1{
+    animation: suaveh1 0.4s forwards;
+    align-self: center;
+}
+.content.active div {
+    display: block;
+    animation: suavediv 1s linear forwards;
+    margin-bottom: 200px;
+}
+@keyframes suavediv {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes suaveh1{
+    to{
+        transform: rotate(0);
+    }
+}
+#Home{
+    background-color: blue;
+}
+#About{
+    background-color: green;
+}
+#Work{
+    background-color: red;
+}
+#Contact{
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/84dc13b7-a2e7-4b45-83ec-311e72e82900/ddcb35z-41b0a795-6f28-48fd-97d4-69f2bd9bb94f.png/v1/fill/w_1153,h_693,strp/goku_wallpaper__dbz_kakarot__by_maxiuchiha22_ddcb35z-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcLzg0ZGMxM2I3LWEyZTctNGI0NS04M2VjLTMxMWU3MmU4MjkwMFwvZGRjYjM1ei00MWIwYTc5NS02ZjI4LTQ4ZmQtOTdkNC02OWYyYmQ5YmI5NGYucG5nIiwid2lkdGgiOiI8PTE3OTUifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ._DVsqGWPrWyxOvpT_7zL6eKTW2yqJ26A9iYusbYIkQU');
+    opacity: 1;
+    background-position: 30%;
     background-repeat: no-repeat;
-    scroll-snap-align: start;
-    pointer-events: none;
-    width: 100%;
-    height: 85vh;
-    flex: none;
+    background-size: cover;
 }
 
-#photo1{
-    background-image: url('./assets/photo1.jpeg');  
-}
-#photo2{
-    background-image: url('./assets/photo2.jpeg'); 
-}
-#photo3{
-    background-image: url('./assets/photo3.jpeg'); 
-}
 
-.bolinhas{
-    position: absolute;
-    width: 50px;
-    height: 15px;
-    right: 50%;
-    transform: translateX(50%);
-    bottom: 115px;
-    z-index: 999;
-    display: flex;
-    justify-content: space-between;
-}
-.bolinha{
-    width: 10px;
-    height: 10px;
-    background-color: rgba(245, 222, 179, 0.459);
-    border-radius: 50%;
+.btn{
+    border: none;
+    padding: 20px 100px;
+    border-radius: 50px;
+    height: 40px;
+    background-color: #d1d1d1;
+    margin: 100px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-}
-.photo-infos{
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    max-width: 800px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    
+}
+.btn::after {
+    content: 'Share';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     height: 100%;
-    z-index: 999999;
-    margin: 0 40px;
-    font-weight: bold;
-}
-.photo-infos h1{
-    font-size: 2rem;
-    font-family: sans-serif;
-    color: white;
-    width: 100%;
-}
+    left: 0%;
+    background-color: black;
+    border-radius: 50px;
+    position: absolute;
+    transition: 1s;
+    color: wheat;
 
-.photo-infos p{
-    font-size: 1.2rem;
-    color: white;
-    margin-top: 30px;
-    width: 100%;
 }
-
-.photo-infos button{
-    margin-top: 30px;
-    background-color: transparent;
-    border: 2px solid white;
-    color: white;
-    padding: 10px 20px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    border-radius: 15px;
-    width: 200px;
-    cursor: pointer;
-    z-index: 1000;
+.btn:hover::after{
+    left: -100%;
 }
